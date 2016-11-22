@@ -106,7 +106,32 @@ if (file_exists('output.json')){
     fclose($f);
 }
 
+// получаем данные из файла
+$file = file_get_contents('output.json');
+$flowers_new = json_decode($file, true);
 
+$random = rand(1, 10);
+
+if ($random > 5) {
+//    echo "Менять";
+    $flowers_new["flower"]["rose"]["color"] = "blue";
+//    echo "<pre>";
+    var_dump($flowers_new);
+//    echo "</pre>";
+}
+
+// выводим в файл
+$json2 = json_encode($flowers_new);
+if (file_exists('output2.json')){
+    file_put_contents('output2.json', $json2);
+} else {
+    $f = fopen('output2.json','w+');
+    fputs($f, $json2);
+    fclose($f);
+}
+echo "<pre>";
+var_dump($json2);
+echo "</pre>";
 
 ?>
 
