@@ -153,6 +153,25 @@ foreach ($csv_text as $item) {
 echo "Сумма четных чисел в файле = " . $sum;
 ?>
 
+<h3>Задание 4</h3>
+
+<?php
+$ch = curl_init("https://en.wikipedia.org/w/api.php?action=query&titles=Main%20Page&prop=revisions&rvprop=content&format=json");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_HEADER, 0);
+$answer = curl_exec($ch);
+curl_close($ch);
+
+$answer = json_decode($answer, true);
+
+function searchTitle($key, $value){
+    if ($value === "title" || $value ==="pageid") {
+        echo "$value - $key<br>";
+    }
+}
+array_walk_recursive($answer, 'searchTitle');
+
+?>
 
 </body>
 </html>
