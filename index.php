@@ -64,74 +64,66 @@ function getItems($xml)
 <?php
 
 // создаем массив с уровнем вложенности не менее одного
-$flowers = [
-    "flower" => [
-        "rose" => [
+$flowers = array(
+        "rose" => array(
             "color" => "red",
             "height" => "40",
             "size" => "small",
-            "manufacture" => "holland",
-        ],
-        "pion" =>[
+            "manufacture" => "holland"
+        ),
+        "pion" => array(
             "color" => "pink",
-            "height" => "",
+            "height" => "120",
             "size" => "middle",
             "manufacture" => "russia",
-        ],
-        "lili" => [
+        ),
+        "lili" => array(
             "color" => "white",
             "height" => "40",
             "size" => "big",
             "manufacture" => "russia",
-        ]
-    ]
-];
+        )
 
-//echo "<pre>";
-var_dump($flowers);
-//echo "</pre>";
+);
 
 // преобразуем в json
-$json = json_encode($flowers);
-echo "<pre>";
-var_dump($json);
-echo "</pre>";
+$json1 = json_encode($flowers);
 
 // выводим в файл
-if (file_exists('output.json')){
-    file_put_contents('output.json', $json);
+if (file_exists('output.json')) {
+    file_put_contents('output.json', $json1);
 } else {
-    $f = fopen('output.json','w+');
-    fputs($f, $json);
+    $f = fopen('output.json', 'w+');
+    fputs($f, $json1);
     fclose($f);
 }
 
 // получаем данные из файла
-$file = file_get_contents('output.json');
-$flowers_new = json_decode($file, true);
+$flowers2 = json_decode(file_get_contents('output.json'), true);
 
-$random = rand(1, 10);
+$random = mt_rand(1, 10);
 
 if ($random > 5) {
-//    echo "Менять";
-    $flowers_new["flower"]["rose"]["color"] = "blue";
-//    echo "<pre>";
-    var_dump($flowers_new);
-//    echo "</pre>";
-}
-
-// выводим в файл
-$json2 = json_encode($flowers_new);
-if (file_exists('output2.json')){
+    $flowers2["bergras"] = "66666";
+    $json2 = json_encode($flowers2);
     file_put_contents('output2.json', $json2);
 } else {
-    $f = fopen('output2.json','w+');
-    fputs($f, $json2);
-    fclose($f);
+    file_put_contents('output2.json', $json1);
 }
+
+$out1 = json_decode(file_get_contents('output.json'), true);
+$out2 = json_decode(file_get_contents('output2.json'), true);
+
+
 echo "<pre>";
-var_dump($json2);
-echo "</pre>";
+if ((array_diff($out2, $out1))) {
+    echo "Различие: ";
+    echo "<pre>";
+    print_r(array_diff($out2, $out1));
+    echo "</pre>";
+} else {
+    echo "Одинаковы";
+}
 
 ?>
 
