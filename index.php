@@ -65,24 +65,24 @@ function getItems($xml)
 
 // создаем массив с уровнем вложенности не менее одного
 $flowers = array(
-        "rose" => array(
-            "color" => "red",
-            "height" => "40",
-            "size" => "small",
-            "manufacture" => "holland"
-        ),
-        "pion" => array(
-            "color" => "pink",
-            "height" => "120",
-            "size" => "middle",
-            "manufacture" => "russia",
-        ),
-        "lili" => array(
-            "color" => "white",
-            "height" => "40",
-            "size" => "big",
-            "manufacture" => "russia",
-        )
+    "rose" => array(
+        "color" => "red",
+        "height" => "40",
+        "size" => "small",
+        "manufacture" => "holland"
+    ),
+    "pion" => array(
+        "color" => "pink",
+        "height" => "120",
+        "size" => "middle",
+        "manufacture" => "russia",
+    ),
+    "lili" => array(
+        "color" => "white",
+        "height" => "40",
+        "size" => "big",
+        "manufacture" => "russia",
+    )
 
 );
 
@@ -125,6 +125,32 @@ if ((array_diff($out2, $out1))) {
     echo "Одинаковы";
 }
 
+?>
+
+<h3>Задание 3</h3>
+
+<?php
+$arr = [];
+for ($i = 0; $i <= 50; $i++) {
+    $arr[$i] = mt_rand(1, 100);
+}
+print_r($arr);
+
+$file_out = fopen('number.csv', 'w+');
+fputcsv($file_out, $arr);
+
+$csv_text = explode(',', file_get_contents('number.csv'));
+
+//var_dump($csv_text);
+
+$sum = 0;
+
+foreach ($csv_text as $item) {
+    if ($item % 2== 0) {
+        $sum += $item;
+    }
+}
+echo "Сумма четных чисел в файле = " . $sum;
 ?>
 
 
