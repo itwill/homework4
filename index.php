@@ -1,4 +1,5 @@
 <?
+// Принято
 // 1 подключаем файл данных xml
 $xml = simplexml_load_file('data.xml');
 
